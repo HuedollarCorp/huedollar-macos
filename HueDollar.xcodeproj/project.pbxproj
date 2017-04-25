@@ -13,6 +13,7 @@
 		A092B8931EA5B1CB008E31F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A092B8911EA5B1CB008E31F2 /* Main.storyboard */; };
 		A092B89E1EA5B1CB008E31F2 /* HueDollarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B89D1EA5B1CB008E31F2 /* HueDollarTests.swift */; };
 		A092B8A91EA5B1CB008E31F2 /* HueDollarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B8A81EA5B1CB008E31F2 /* HueDollarUITests.swift */; };
+		A092B8B71EA5B82C008E31F2 /* CurrencyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B8B61EA5B82C008E31F2 /* CurrencyAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		A092B8A41EA5B1CB008E31F2 /* HueDollarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HueDollarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A092B8A81EA5B1CB008E31F2 /* HueDollarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueDollarUITests.swift; sourceTree = "<group>"; };
 		A092B8AA1EA5B1CB008E31F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A092B8B61EA5B82C008E31F2 /* CurrencyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				A092B88B1EA5B1CB008E31F2 /* AppDelegate.swift */,
+				A092B8B61EA5B82C008E31F2 /* CurrencyAPI.swift */,
 				A092B88D1EA5B1CB008E31F2 /* ViewController.swift */,
 				A092B88F1EA5B1CB008E31F2 /* Assets.xcassets */,
 				A092B8911EA5B1CB008E31F2 /* Main.storyboard */,
@@ -257,6 +260,7 @@
 			files = (
 				A092B88E1EA5B1CB008E31F2 /* ViewController.swift in Sources */,
 				A092B88C1EA5B1CB008E31F2 /* AppDelegate.swift in Sources */,
+				A092B8B71EA5B82C008E31F2 /* CurrencyAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +406,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = HueDollar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.hue.HueDollar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -415,6 +420,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = HueDollar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.hue.HueDollar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -498,6 +504,7 @@
 				A092B8AF1EA5B1CB008E31F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A092B8B01EA5B1CB008E31F2 /* Build configuration list for PBXNativeTarget "HueDollarTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +513,7 @@
 				A092B8B21EA5B1CB008E31F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A092B8B31EA5B1CB008E31F2 /* Build configuration list for PBXNativeTarget "HueDollarUITests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +522,7 @@
 				A092B8B51EA5B1CB008E31F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
