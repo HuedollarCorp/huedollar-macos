@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A041AC091F2151090029183A /* BitcoinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A041AC081F2151090029183A /* BitcoinAPI.swift */; };
 		A092B88C1EA5B1CB008E31F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B88B1EA5B1CB008E31F2 /* AppDelegate.swift */; };
 		A092B88E1EA5B1CB008E31F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B88D1EA5B1CB008E31F2 /* ViewController.swift */; };
 		A092B8901EA5B1CB008E31F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A092B88F1EA5B1CB008E31F2 /* Assets.xcassets */; };
 		A092B8931EA5B1CB008E31F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A092B8911EA5B1CB008E31F2 /* Main.storyboard */; };
 		A092B89E1EA5B1CB008E31F2 /* HueDollarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B89D1EA5B1CB008E31F2 /* HueDollarTests.swift */; };
 		A092B8A91EA5B1CB008E31F2 /* HueDollarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B8A81EA5B1CB008E31F2 /* HueDollarUITests.swift */; };
-		A092B8B71EA5B82C008E31F2 /* CurrencyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B8B61EA5B82C008E31F2 /* CurrencyAPI.swift */; };
+		A092B8B71EA5B82C008E31F2 /* DollarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092B8B61EA5B82C008E31F2 /* DollarAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A041AC081F2151090029183A /* BitcoinAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinAPI.swift; sourceTree = "<group>"; };
 		A092B8881EA5B1CB008E31F2 /* HueDollar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HueDollar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A092B88B1EA5B1CB008E31F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A092B88D1EA5B1CB008E31F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +48,7 @@
 		A092B8A41EA5B1CB008E31F2 /* HueDollarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HueDollarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A092B8A81EA5B1CB008E31F2 /* HueDollarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueDollarUITests.swift; sourceTree = "<group>"; };
 		A092B8AA1EA5B1CB008E31F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A092B8B61EA5B82C008E31F2 /* CurrencyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyAPI.swift; sourceTree = "<group>"; };
+		A092B8B61EA5B82C008E31F2 /* DollarAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DollarAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +100,12 @@
 			isa = PBXGroup;
 			children = (
 				A092B88B1EA5B1CB008E31F2 /* AppDelegate.swift */,
-				A092B8B61EA5B82C008E31F2 /* CurrencyAPI.swift */,
+				A092B8B61EA5B82C008E31F2 /* DollarAPI.swift */,
 				A092B88D1EA5B1CB008E31F2 /* ViewController.swift */,
 				A092B88F1EA5B1CB008E31F2 /* Assets.xcassets */,
 				A092B8911EA5B1CB008E31F2 /* Main.storyboard */,
 				A092B8941EA5B1CB008E31F2 /* Info.plist */,
+				A041AC081F2151090029183A /* BitcoinAPI.swift */,
 			);
 			path = HueDollar;
 			sourceTree = "<group>";
@@ -259,8 +262,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A092B88E1EA5B1CB008E31F2 /* ViewController.swift in Sources */,
+				A041AC091F2151090029183A /* BitcoinAPI.swift in Sources */,
 				A092B88C1EA5B1CB008E31F2 /* AppDelegate.swift in Sources */,
-				A092B8B71EA5B82C008E31F2 /* CurrencyAPI.swift in Sources */,
+				A092B8B71EA5B82C008E31F2 /* DollarAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

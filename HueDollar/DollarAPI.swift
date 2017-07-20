@@ -8,18 +8,7 @@
 
 import Foundation
 
-
-struct Currency : CustomStringConvertible {
-    var currency: String
-    var quote: Float
-    var when: String
-    
-    var description: String {
-        return String(format: "$ %.3f", quote)
-    }
-}
-
-class CurrencyAPI {
+class DollarAPI {
     let BASE_URL = "http://api.promasters.net.br/cotacao/v1/valores"
     
     func fetchCurrency(_ currencyCode: String, success: @escaping (Currency) -> Void) {
@@ -72,6 +61,7 @@ class CurrencyAPI {
         
         let currency = Currency(
             currency: currencyCode,
+            symbol: "$",
             quote: currencyDict["valor"] as! Float,
             when: localDate
         )
