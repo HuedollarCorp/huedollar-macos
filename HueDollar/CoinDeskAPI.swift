@@ -1,5 +1,5 @@
 //
-//  CurrencyLayer.swift
+//  CoinDeskAPI.swift
 //  HueDollar
 //
 //  Created by Alan Sikora on 17/04/17.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-class BitcoinAPI {
-    let BASE_URL = "https://api.bitvalor.com/v1"
+class CoinDeskAPI {
+    let BASE_URL = "https://api.coindesk.com/v1"
     
     func fetchCurrency(_ currencyCode: String, success: @escaping (Currency) -> Void) {
         let session = URLSession.shared
-        let url = URL(string: "\(BASE_URL)/ticker.json")
+        let url = URL(string: "\(BASE_URL)/bpi/currentprice.json")
         let task = session.dataTask(with: url!) { data, response, err in
             // first check for a hard error
             if let error = err {
@@ -28,9 +28,9 @@ class BitcoinAPI {
                         success(currency)
                     }
                 case 401: // unauthorized
-                    NSLog("Bitcoin API returned an 'unauthorized' response. Did you set your API key?")
+                    NSLog("CoinDesk API returned an 'unauthorized' response. Did you set your API key?")
                 default:
-                    NSLog("Bitcoin API returned response: %d %@", httpResponse.statusCode, HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))
+                    NSLog("CoinDesk API returned response: %d %@", httpResponse.statusCode, HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))
                 }
             }
         }
@@ -48,27 +48,29 @@ class BitcoinAPI {
             return nil
         }
         
-        var ticker24hDict = json["ticker_24h"] as! JSONDict
-        var exchangesDict = ticker24hDict["exchanges"] as! JSONDict
-        var foxDict = exchangesDict["FOX"] as! JSONDict
+        var bpiDict = json["bpi"] as! JSONDict
+        var usdDict = bpiDict["USD"] as! JSONDict
         
-        var timestampDict = json["timestamp"] as! JSONDict
-        
-        let timestamp = NSDate(timeIntervalSince1970: timestampDict["total"] as! Double)
-        
+        var timeDict = json["time"] as! JSONDict
+  
         let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let localDate : Date = dateFormatter.date(from: timeDict["updatedISO"] as! String)!
+        
         dateFormatter.locale = Locale(identifier: "pt_BR")
         dateFormatter.timeStyle = DateFormatter.Style.short
         dateFormatter.dateStyle = DateFormatter.Style.short
-        let localDate = dateFormatter.string(from: timestamp as Date)
+        let localDateString = dateFormatter.string(from: localDate)
         
         let currency = Currency(
             currency: currencyCode,
             symbol: "฿",
-            quote: foxDict["last"] as! Float,
-            when: localDate
+            quote: usdDict["rate_float"] as! Float,
+            when: localDateString
         )
         
         return currency
     }
 }
+

@@ -23,45 +23,30 @@ struct Currency : CustomStringConvertible {
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var dollarAPI: DollarAPI!
-    var bitcoinAPI: BitcoinAPI!
+    var bitvalorAPI: BitValorAPI!
+    var coinDeskAPI: CoinDeskAPI!
     
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     var dateMenuItem: NSMenuItem!
     var payoneerCurrencyItem: NSMenuItem!
-    var bitcoinCurrencyItem: NSMenuItem!
+    var foxbitCurrencyItem: NSMenuItem!
     
     func getLastQuoteString() -> String {
-        if(UserDefaults.standard.value(forKey: "last_quote") == nil) {
-            UserDefaults.standard.setValue(0.0, forKey: "last_quote")
-        }
-        
         return String(format: "$ %.2f | ฿ %.2f",
                       UserDefaults.standard.value(forKey: "last_quote") as! Float,
-                      UserDefaults.standard.value(forKey: "last_bitcoin_quote") as! Float)
+                      UserDefaults.standard.value(forKey: "last_coindesk_quote") as! Float)
     }
     
     func getLastQuoteDateString() -> String {
-        if(UserDefaults.standard.value(forKey: "last_quote_date") == nil) {
-            UserDefaults.standard.setValue("---", forKey: "last_quote_date")
-        }
-        
         return "Last Quote: \(UserDefaults.standard.value(forKey: "last_quote_date")!)"
     }
     
     func getLastPayonnerQuoteString() -> String {
-        if(UserDefaults.standard.value(forKey: "last_payoneer_quote") == nil) {
-            UserDefaults.standard.setValue(0.0, forKey: "last_payoneer_quote")
-        }
-        
         return String(format: "Payoneer: $ %.4f", UserDefaults.standard.value(forKey: "last_payoneer_quote") as! Float)
     }
     
-    func getLastBitcoinQuoteString() -> String {
-        if(UserDefaults.standard.value(forKey: "last_bitcoin_quote") == nil) {
-            UserDefaults.standard.setValue(0.0, forKey: "last_bitcoin_quote")
-        }
-        
-        return String(format: "Bitcoin: ฿ %.4f", UserDefaults.standard.value(forKey: "last_bitcoin_quote") as! Float)
+    func getLastFoxBitQuoteString() -> String {
+        return String(format: "FoxBit: $ %.2f", UserDefaults.standard.value(forKey: "last_bitvalor_quote") as! Float)
     }
     
     func getRate() {
@@ -72,14 +57,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             self.statusItem.menu?.item(withTag: 0)?.title = self.getLastQuoteDateString()
             self.statusItem.menu?.item(withTag: 1)?.title = self.getLastPayonnerQuoteString()
+            self.statusItem.menu?.item(withTag: 2)?.title = self.getLastFoxBitQuoteString()
             
             if let button = self.statusItem.button {
                 button.title = self.getLastQuoteString()
             }
         }
         
-        bitcoinAPI.fetchCurrency("BTC") { currency in
-            UserDefaults.standard.setValue(currency.quote, forKey: "last_bitcoin_quote")
+        bitvalorAPI.fetchCurrency("BTC") { currency in
+            UserDefaults.standard.setValue(currency.quote, forKey: "last_bitvalor_quote")
+        }
+        
+        coinDeskAPI.fetchCurrency("BTC") { currency in
+            UserDefaults.standard.setValue(currency.quote, forKey: "last_coindesk_quote")
         }
     }
     
@@ -95,7 +85,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Timer.scheduledTimer(timeInterval: 1800, target: self, selector: #selector(self.getRate), userInfo: nil, repeats: true);
         
         dollarAPI = DollarAPI()
-        bitcoinAPI = BitcoinAPI()
+        bitvalorAPI = BitValorAPI()
+        coinDeskAPI = CoinDeskAPI()
+        
+        // Initialize
+        if(UserDefaults.standard.value(forKey: "last_coindesk_quote") == nil) {
+            UserDefaults.standard.setValue(0.0, forKey: "last_coindesk_quote")
+        }
+        if(UserDefaults.standard.value(forKey: "last_bitvalor_quote") == nil) {
+            UserDefaults.standard.setValue(0.0, forKey: "last_bitvalor_quote")
+        }
+        if(UserDefaults.standard.value(forKey: "last_payoneer_quote") == nil) {
+            UserDefaults.standard.setValue(0.0, forKey: "last_payoneer_quote")
+        }
+        if(UserDefaults.standard.value(forKey: "last_quote") == nil) {
+            UserDefaults.standard.setValue(0.0, forKey: "last_quote")
+        }
+        if(UserDefaults.standard.value(forKey: "last_quote_date") == nil) {
+            UserDefaults.standard.setValue("---", forKey: "last_quote_date")
+        }
         
         if let button = statusItem.button {
             button.title = getLastQuoteString()
@@ -111,6 +119,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         payoneerCurrencyItem.isEnabled = false
         
         menu.addItem(payoneerCurrencyItem)
+        
+        // FoxBit
+        foxbitCurrencyItem = NSMenuItem(title: getLastFoxBitQuoteString(), action: nil, keyEquivalent: "")
+        foxbitCurrencyItem.tag = 2
+        foxbitCurrencyItem.isEnabled = false
+        
+        menu.addItem(foxbitCurrencyItem)
         
         // Date
         dateMenuItem = NSMenuItem(title: getLastQuoteString(), action: nil, keyEquivalent: "")
