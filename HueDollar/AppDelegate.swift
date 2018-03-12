@@ -26,15 +26,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var bitvalorAPI: BitValorAPI!
     var coinDeskAPI: CoinDeskAPI!
     
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var dateMenuItem: NSMenuItem!
     var payoneerCurrencyItem: NSMenuItem!
-    var foxbitCurrencyItem: NSMenuItem!
+    var coindeskCurrencyItem: NSMenuItem!
+    var btcBrCurrencyItem: NSMenuItem!
     
     func getLastQuoteString() -> String {
-        return String(format: "$ %.2f | ฿ %.2f",
-                      UserDefaults.standard.value(forKey: "last_quote") as! Float,
-                      UserDefaults.standard.value(forKey: "last_coindesk_quote") as! Float)
+        return String(format: "$ %.2f",
+                      UserDefaults.standard.value(forKey: "last_quote") as! Float)
     }
     
     func getLastQuoteDateString() -> String {
@@ -45,11 +45,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return String(format: "Payoneer: $ %.4f", UserDefaults.standard.value(forKey: "last_payoneer_quote") as! Float)
     }
     
-    func getLastFoxBitQuoteString() -> String {
-        return String(format: "FoxBit: $ %.2f", UserDefaults.standard.value(forKey: "last_bitvalor_quote") as! Float)
+    func getLastCoinDeskQuoteString() -> String {
+        return String(format: "BTC: $ %.2f", UserDefaults.standard.value(forKey: "last_coindesk_quote") as! Float)
     }
     
-    func getRate() {
+    func getLastBtcBrQuoteString() -> String {
+        return String(format: "BTC BR: $ %.2f", UserDefaults.standard.value(forKey: "last_bitvalor_quote") as! Float)
+    }
+    
+    @objc func getRate() {
         dollarAPI.fetchCurrency("USD") { currency in
             UserDefaults.standard.setValue(currency.quote, forKey: "last_quote")
             UserDefaults.standard.setValue(currency.quote * 0.98, forKey: "last_payoneer_quote")
@@ -57,10 +61,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             self.statusItem.menu?.item(withTag: 0)?.title = self.getLastQuoteDateString()
             self.statusItem.menu?.item(withTag: 1)?.title = self.getLastPayonnerQuoteString()
-            self.statusItem.menu?.item(withTag: 2)?.title = self.getLastFoxBitQuoteString()
+            self.statusItem.menu?.item(withTag: 2)?.title = self.getLastCoinDeskQuoteString()
+            self.statusItem.menu?.item(withTag: 3)?.title = self.getLastBtcBrQuoteString()
             
             if let button = self.statusItem.button {
-                button.title = self.getLastQuoteString()
+                DispatchQueue.main.async {
+                    button.title = self.getLastQuoteString()
+                }
             }
         }
         
@@ -73,11 +80,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func getRateEvent(sender: AnyObject) {
+    @objc func getRateEvent(sender: AnyObject) {
         getRate()
     }
     
-    func quit(sender: NSMenuItem) {
+    @objc func quit(sender: NSMenuItem) {
         NSApp.terminate(self)
     }
 
@@ -120,12 +127,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         menu.addItem(payoneerCurrencyItem)
         
-        // FoxBit
-        foxbitCurrencyItem = NSMenuItem(title: getLastFoxBitQuoteString(), action: nil, keyEquivalent: "")
-        foxbitCurrencyItem.tag = 2
-        foxbitCurrencyItem.isEnabled = false
+        // CoinDesk
+        coindeskCurrencyItem = NSMenuItem(title: getLastCoinDeskQuoteString(), action: nil, keyEquivalent: "")
+        coindeskCurrencyItem.tag = 2
+        coindeskCurrencyItem.isEnabled = false
         
-        menu.addItem(foxbitCurrencyItem)
+        menu.addItem(coindeskCurrencyItem)
+        
+        // Bitcoin - Brazil
+        btcBrCurrencyItem = NSMenuItem(title: getLastBtcBrQuoteString(), action: nil, keyEquivalent: "")
+        btcBrCurrencyItem.tag = 3
+        btcBrCurrencyItem.isEnabled = false
+        
+        menu.addItem(btcBrCurrencyItem)
         
         // Date
         dateMenuItem = NSMenuItem(title: getLastQuoteString(), action: nil, keyEquivalent: "")

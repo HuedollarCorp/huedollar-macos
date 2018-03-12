@@ -50,7 +50,7 @@ class BitValorAPI {
         
         var ticker24hDict = json["ticker_24h"] as! JSONDict
         var exchangesDict = ticker24hDict["exchanges"] as! JSONDict
-        var foxDict = exchangesDict["FOX"] as! JSONDict
+        var foxDict = exchangesDict["NEG"] as! JSONDict
         
         var timestampDict = json["timestamp"] as! JSONDict
         
